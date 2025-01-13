@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,28 +15,98 @@
 
         header {
             background-color: #28a745; /* DraftKings Green */
-            padding: 20px;
-            text-align: center;
+            width: 60%; /* 3/5 of the screen width */
+            margin: 0 auto; /* Center the header */
+            text-align: center; /* Center the content inside the header */
+            padding: 10px 0;
+            border-radius: 10px; /* Slight rounding for aesthetics */
         }
 
         header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 20px;
             color: #ffffff;
         }
 
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 20px;
-            padding: 20px;
+        .menu-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            left: 20px;
+            top: 20px;
         }
 
-        .widget {
+        .dashboard-container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar.active {
+            display: flex;
+        }
+
+        .sidebar .avatar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .avatar img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #333;
+        }
+
+        .sidebar a:hover {
+            background-color: #28a745;
+        }
+
+        .dashboard {
+            flex-grow: 1;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Flexible tile layout */
+            gap: 20px;
+        }
+
+        .tile {
             background-color: #1e1e1e;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            height: 200px; /* Uniform height for all tiles */
+            overflow: hidden; /* Ensure content doesn’t overflow */
+        }
+
+        .tile.performance {
+            height: auto; /* Allow the My Performance tile to expand */
+        }
+
+        .tile h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
         }
 
         .progress-circle {
@@ -46,12 +115,13 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .progress-circle .circle {
-            width: 100px;
-            height: 100px;
-            border: 10px solid #ffa500; /* DraftKings Orange */
+            width: 80px;
+            height: 80px;
+            border: 8px solid #ffa500; /* DraftKings Orange */
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -59,85 +129,133 @@
             margin-bottom: 10px;
         }
 
-        .leaderboard {
-            text-align: left;
+        .scrollable {
+            max-height: 140px; /* Limit the height for scrolling */
+            overflow-y: auto;
         }
 
-        .leaderboard table {
+        .scrollable table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .leaderboard table th, .leaderboard table td {
+        .scrollable th, .scrollable td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #444;
         }
 
-        .leaderboard table th {
+        .scrollable th {
             background-color: #333;
+            color: #ffffff;
         }
 
-        .card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .scrollable td {
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
     </style>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
 </head>
 <body>
     <header>
+        <button class="menu-button" onclick="toggleSidebar()">☰</button> <!-- Sidebar Menu Button -->
         <h1>DraftKings Centrical Dashboard</h1>
     </header>
-    <div class="dashboard">
-        <!-- Left Column -->
-        <div class="widget">
-            <h2>Progress</h2>
-            <div class="progress-circle">
-                <div class="circle">75%</div>
-                <p>KPI Goal</p>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="avatar">
+                <img src="https://via.placeholder.com/50" alt="Avatar">
+                <span>Rodolfo Venegas</span>
             </div>
+            <a href="#">Home</a>
+            <a href="#">My Performance</a>
+            <a href="#">My Missions</a>
+            <a href="#">My Challenges</a>
+            <a href="#">My Badges</a>
+            <a href="#">My Levels</a>
+            <a href="#">Leaderboard</a>
+            <a href="#">Store</a>
         </div>
 
-        <!-- Middle Column -->
-        <div class="widget">
-            <h2>Leaderboard</h2>
-            <div class="leaderboard">
-                <table>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Points</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>450</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Mike Johnson</td>
-                        <td>400</td>
-                    </tr>
-                </table>
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="tile performance">
+                <h2>My Performance</h2>
+                <div class="progress-circle">
+                    <div class="circle">75%</div>
+                    <p>Chat Online Time %</p>
+                </div>
+                <div class="progress-circle">
+                    <div class="circle">60%</div>
+                    <p>Winning Bet Longest Odds</p>
+                </div>
+                <div class="progress-circle">
+                    <div class="circle">80%</div>
+                    <p>Close Rate %</p>
+                </div>
+                <div class="progress-circle">
+                    <div class="circle">50%</div>
+                    <p>Reply Ratio %</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Right Column -->
-        <div class="widget">
-            <h2>My Missions</h2>
-            <div class="card">
-                <p>Weekly Knowledge Check</p>
-                <p>Points: 20</p>
+            <div class="tile">
+                <h2>Leaderboard</h2>
+                <div class="scrollable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Team</th>
+                                <th>Level</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>Team A</td>
+                                <td>5</td>
+                                <td>500</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td>Team B</td>
+                                <td>6</td>
+                                <td>450</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Mike Johnson</td>
+                                <td>Team C</td>
+                                <td>4</td>
+                                <td>400</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="card">
-                <p>Complete Training</p>
-                <p>Points: 15</p>
+
+            <div class="tile">
+                <h2>My Missions</h2>
+                <div class="card">
+                    <p>Weekly Knowledge Check</p>
+                    <p>Points: 20</p>
+                </div>
+                <div class="card">
+                    <p>Complete Training</p>
+                    <p>Points: 15</p>
+                </div>
             </div>
         </div>
     </div>
