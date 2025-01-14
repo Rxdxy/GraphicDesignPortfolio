@@ -155,6 +155,7 @@
             margin: 10px auto;
             border-radius: 50%;
             background: conic-gradient(#333 0%, #333 100%);
+            transition: background 1s ease-in-out;
         }
 
         .progress-circle .label {
@@ -165,20 +166,6 @@
             color: #ffffff;
             font-size: 14px;
             font-weight: bold;
-        }
-
-        /* Animation for hover effect */
-        .progress-circle:hover {
-            animation: fill-circle-animation 2s forwards;
-        }
-
-        @keyframes fill-circle-animation {
-            0% {
-                background: conic-gradient(#333 0%, #333 100%);
-            }
-            100% {
-                background: conic-gradient(#ffa500 var(--progress), #333 var(--progress) 100%);
-            }
         }
 
         .missions-list {
@@ -267,6 +254,26 @@
             const sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('active');
         }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const circles = document.querySelectorAll(".progress-circle");
+
+            circles.forEach(circle => {
+                circle.addEventListener("mouseenter", () => {
+                    const progress = parseFloat(circle.style.getPropertyValue("--progress").replace('%', '')) || 0;
+                    let currentProgress = 0;
+
+                    const interval = setInterval(() => {
+                        if (currentProgress >= progress) {
+                            clearInterval(interval);
+                        } else {
+                            currentProgress++;
+                            circle.style.background = `conic-gradient(#ffa500 0% ${currentProgress}%, #333 ${currentProgress}% 100%)`;
+                        }
+                    }, 10); // Adjust speed here
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -363,6 +370,7 @@
                     </table>
                 </div>
             </div>
+
 
             <!-- My Missions -->
             <div class="tile">
