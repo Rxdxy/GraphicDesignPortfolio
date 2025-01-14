@@ -85,7 +85,7 @@
 
         .sidebar {
             width: 250px;
-            background-color: linear-gradient(180deg, #1e1e1e, #282828); /* Dark gradient */
+            background-color: #1e1e1e;
             padding: 20px;
             display: none;
             flex-direction: column;
@@ -95,7 +95,7 @@
             top: 0;
             left: 0;
             z-index: 1000;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5); /* Shadow */
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.5);
         }
 
         .sidebar.active {
@@ -121,11 +121,16 @@
             font-size: 16px;
             padding: 10px 15px;
             border-radius: 5px;
-            background-color: #333;
+            background-color: linear-gradient(180deg, #333, #444);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; /* Transition */
         }
 
         .sidebar a:hover {
             background-color: #28a745;
+            transform: translateY(-2px); /* Slight lift on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Shadow on hover */
+            color: #ffffff;
         }
 
         .dashboard {
