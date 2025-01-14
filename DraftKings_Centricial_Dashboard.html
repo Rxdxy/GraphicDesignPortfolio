@@ -166,7 +166,12 @@
             margin: 10px auto;
             border-radius: 50%;
             background: conic-gradient(#333 0%, #333 100%);
-            transition: background 1s ease-in-out;
+            transition: background 1s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(225, 165, 0, 0.5); /* Shadow */
+        }
+
+        .progress-circle:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7), 0 0 15px rgba(225, 165, 0, 0.7); /* Shadow on hover */
         }
 
         .progress-circle .label {
@@ -204,7 +209,7 @@
         }
 
         .start-button {
-            background-color: #28a745;
+            background-color: linear-gradient(90deg, #28a745, #1e7d36);
             color: #ffffff;
             border: none;
             border-radius: 5px;
@@ -215,11 +220,12 @@
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out, background 0.3s ease; /* Transition */
         }
 
         .mission-tile:hover .start-button {
             opacity: 1;
+            background: linear-gradient(90deg, #1e7d36, #28a745); /* Green gradient */
         }
 
         .scrollable {
